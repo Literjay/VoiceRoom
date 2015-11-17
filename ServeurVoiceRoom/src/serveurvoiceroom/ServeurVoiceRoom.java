@@ -6,13 +6,10 @@
 
 package serveurvoiceroom;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
+import javax.net.ssl.*;
+import javax.net.*;
+import java.io.*;
+import java.net.*;
 
 /**
  *
@@ -23,26 +20,40 @@ public class ServeurVoiceRoom {
     /**
      * @param args the command line arguments
      */
+    private static final int PORT_NUM = 5000;
     public static void main(String[] args) {
-       try {
-
-            ServerSocket listener = new ServerSocket(1777);
-            System.out.println("Attente d'une reponse");
-            
-            Socket socket = listener.accept();
-            System.out.println("reponse recu");
-            
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-
-            
-
-        } catch (UnknownHostException e) {
-
-            e.printStackTrace();
-        } catch (IOException e) {
-
-            e.printStackTrace();
+        ServerSocketFactory serverSocketFactory =
+        ServerSocketFactory.getDefault();
+        ServerSocket serverSocket = null;
+        try {
+          serverSocket =
+            serverSocketFactory.createServerSocket(PORT_NUM);
+        } catch (IOException ignored) {
+          System.err.println("Unable to create server");
+          System.exit(-1);
+        }
+        System.out.printf("LogServer running on port: %s%n", PORT_NUM);
+        while (true) {
+          Socket socket = null;
+          try {
+            socket = serverSocket.accept();
+            InputStream is = socket.getInputStream();
+            BufferedReader br = new BufferedReader(
+              new InputStreamReader(is, "US-ASCII"));
+            String line = null;
+            while ((line = br.readLine()) != null) {
+              System.out.println(line);
+            }
+          } catch (IOException exception) {
+            // Just handle next request.
+          } finally {
+            if (socket != null) {
+              try {
+                socket.close();
+              } catch (IOException ignored) {
+              }
+            }
+          }
         }
     }
     
