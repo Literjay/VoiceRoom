@@ -20,7 +20,7 @@ public class ServeurVoiceRoom {
      * @param args the command line arguments
      */
     static final int PORT = 1777;
-    // test
+    // test 2 pour pierre
     public static void main(String args[]) {
         ServerSocket serverSocket = null;
         Socket socket = null;
