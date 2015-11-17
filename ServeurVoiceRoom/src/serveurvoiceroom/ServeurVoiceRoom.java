@@ -20,7 +20,7 @@ public class ServeurVoiceRoom {
     /**
      * @param args the command line arguments
      */
-    private static final int PORT_NUM = 5000;
+    private static final int PORT_NUM = 1777;
     public static void main(String[] args) {
         ServerSocketFactory serverSocketFactory =
         ServerSocketFactory.getDefault();
