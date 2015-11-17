@@ -21,6 +21,8 @@ public class ServeurVoiceRoom {
      */
     static final int PORT = 1777;
     // test 2 pour pierre
+    
+    //test si erase
     public static void main(String args[]) {
         ServerSocket serverSocket = null;
         Socket socket = null;
