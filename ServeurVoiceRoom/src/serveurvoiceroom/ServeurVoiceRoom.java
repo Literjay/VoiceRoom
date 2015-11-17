@@ -20,9 +20,6 @@ public class ServeurVoiceRoom {
      * @param args the command line arguments
      */
     static final int PORT = 1777;
-    // test 2 pour pierre
-    
-    //test si erase
     public static void main(String args[]) {
         ServerSocket serverSocket = null;
         Socket socket = null;
@@ -42,8 +39,6 @@ public class ServeurVoiceRoom {
             // new threa for a client
             new EchoThread(socket).start();
         }
-        
-        // test encore
     }
     
 }
