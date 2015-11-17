@@ -11,7 +11,7 @@ package voiceroom;
  */
 public class VoiceRoom {
 
-    int i  = 10;
+    int i  = 0;
     /**
      * @param args the command line arguments
      */
