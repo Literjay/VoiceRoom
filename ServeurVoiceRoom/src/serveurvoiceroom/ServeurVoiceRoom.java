@@ -42,6 +42,8 @@ public class ServeurVoiceRoom {
             // new threa for a client
             new EchoThread(socket).start();
         }
+        
+        // test encore
     }
     
 }
