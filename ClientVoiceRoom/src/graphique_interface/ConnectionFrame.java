@@ -121,12 +121,12 @@ public class ConnectionFrame extends javax.swing.JFrame {
             mInt = new ObjectInputStream(mSocket.getInputStream());
             mOut.writeObject(input_user.getText());
             mOut.flush();
-            mOut.writeObject(input_password);
+            mOut.writeObject(input_password.getText());
             mOut.flush();
-            
-            if((Boolean)mInt.readObject()){
+            System.out.println("test1");
+            if(mInt.readBoolean()){
                 
-                Room room = (Room)mInt.readObject();
+                Room room = (Room) mInt.readObject();
                 PrincipaleFrame frame = new PrincipaleFrame();
                 frame.show();
             }
