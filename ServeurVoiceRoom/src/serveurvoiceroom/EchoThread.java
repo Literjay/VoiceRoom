@@ -17,7 +17,7 @@ public class EchoThread extends Thread {
     public EchoThread(Socket clientSocket) {
         this.socket = clientSocket;
     }
-
+//COucou Maximus le malus by Erwann
     public void run() {
         InputStream inp = null;
         BufferedReader brinp = null;
