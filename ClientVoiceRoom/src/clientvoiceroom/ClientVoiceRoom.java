@@ -19,7 +19,6 @@ public class ClientVoiceRoom {
     public static void main(String[] args) {
         try {
             
-
             Socket mSocket = new Socket(InetAddress.getLocalHost(), 1777);
 
             ObjectOutputStream mOut = new ObjectOutputStream(mSocket.getOutputStream());
