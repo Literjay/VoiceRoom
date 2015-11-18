@@ -15,6 +15,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -74,7 +76,19 @@ public class Client {
                     room.setClients(clients);
                     Out.writeBoolean(true);
                     Out.flush();
-                    Out.writeObject(room);
+                    
+                    JSONObject jsRoom = new JSONObject();
+                    jsRoom.put("nom", room.getName());
+                    JSONArray jsClients = new JSONArray();
+                    for (Client c : clients){
+                        String name = c.getIdentifiant();
+                        jsClients.add(name);
+                    }
+                    
+                    
+                    jsRoom.put("clients", jsClients);
+                    
+                    Out.writeObject(jsRoom);
                     Out.flush();
                     while(true){
                         switch ((String) Int.readObject()) {
