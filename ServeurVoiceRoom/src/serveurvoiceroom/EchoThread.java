@@ -7,18 +7,16 @@
 package serveurvoiceroom;
 import java.io.*;
 import java.net.*;
-/**
- *
- * @author pdelmotte
- */
+
 public class EchoThread extends Thread {
     protected Socket socket;
 
     public EchoThread(Socket clientSocket) {
         this.socket = clientSocket;
     }
-//COucou Maximus le malus by Erwann
+    
     public void run() {
+        
         InputStream inp = null;
         BufferedReader brinp = null;
         DataOutputStream out = null;
