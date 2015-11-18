@@ -10,7 +10,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -126,7 +129,14 @@ public class ConnectionFrame extends javax.swing.JFrame {
             System.out.println("test1");
             if(mInt.readBoolean()){
                 
-                Room room = (Room) mInt.readObject();
+                JSONObject jsRoom = (JSONObject) mInt.readObject();
+                JSONArray jsClients = (JSONArray)jsRoom.get("clients");
+                ArrayList<Client> clients = new ArrayList<Client>();
+                for(int i = 0; i<jsClients.size(); i++){
+                    Client c = (Client)jsClients.get(i);
+                }
+                Room room = new Room((String)jsRoom.get("name"));
+                room.setClients(clients);
                 PrincipaleFrame frame = new PrincipaleFrame();
                 frame.show();
             }
