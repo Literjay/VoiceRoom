@@ -6,14 +6,12 @@
 
 package serveurvoiceroom;
 
-import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -25,6 +23,15 @@ public class Client {
     private String Identifiant;
     private String password;
     protected Socket socket;
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+    
     
     public String getIdentifiant() {
         return Identifiant;
@@ -49,16 +56,6 @@ public class Client {
     public void run(Room room) throws IOException, ClassNotFoundException{
         ObjectInputStream Int = new ObjectInputStream(socket.getInputStream());
         ObjectOutputStream Out =  new ObjectOutputStream(socket.getOutputStream());
-        /*InputStream inp = null;
-        BufferedReader brinp = null;
-        DataOutputStream out = null;
-        try {
-            inp = socket.getInputStream();
-            brinp = new BufferedReader(new InputStreamReader(inp));
-            out = new DataOutputStream(socket.getOutputStream());
-        } catch (IOException e) {
-            return;
-        }*/
         String line;
             try {
                 line = (String) Int.readObject();
@@ -76,10 +73,14 @@ public class Client {
                     Out.flush();
                     Out.writeObject(room);
                     Out.flush();
-                    while(true){
-                        switch ((String) Int.readObject()) {
-                            case "":
-                                break;
+                    int bytesRead = 0;
+                    byte[] inBytes = new byte[1];
+                    while(bytesRead != -1)
+                    {
+                        try{bytesRead = Int.read(inBytes, 0, inBytes.length);}catch (IOException e){}
+                        if(bytesRead >= 0)
+                        {
+                            sendToAll(inBytes, bytesRead,clients);
                         }
                     }
                 }
@@ -88,5 +89,25 @@ public class Client {
                 return;
             }
         
+    }
+    
+    
+    public static void sendToAll(byte[] byteArray, int q, List<Client> clients)
+    {
+        Iterator<Client> sockIt = clients.iterator();
+        while(sockIt.hasNext())
+        {
+            Client temp = sockIt.next();
+            DataOutputStream tempOut = null;
+            try
+            {
+                tempOut = new DataOutputStream(temp.getSocket().getOutputStream());
+            } catch (IOException e1)
+            {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            try{tempOut.write(byteArray, 0, q);}catch (IOException e){}
+        }
     }
 }
