@@ -21,6 +21,7 @@ public class Client {
     
     private String Identifiant;
     private String password;
+    private EchoThread thread;
     protected Socket socket;
     
     public String getIdentifiant() {
@@ -37,6 +38,14 @@ public class Client {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public EchoThread getThread() {
+        return thread;
+    }
+
+    public void setThread(EchoThread thread) {
+        this.thread = thread;
     }
     
     public Client(Socket socket) {
