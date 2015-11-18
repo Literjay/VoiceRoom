@@ -16,5 +16,25 @@ public class Room {
     
     private List<Client> Clients;
     private String name;
+
+    public List<Client> getClients() {
+        return Clients;
+    }
+
+    public void setClients(List<Client> Clients) {
+        this.Clients = Clients;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Room(String name) {
+        this.name = name;
+    }
     
 }
