@@ -120,8 +120,10 @@ public class ConnectionFrame extends javax.swing.JFrame {
         try{
             mSocket = new Socket(InetAddress.getLocalHost(), 1777);
             mOut = new ObjectOutputStream(mSocket.getOutputStream());
-            mOut.writeBytes("Test Output");
             mInt = new ObjectInputStream(mSocket.getInputStream());
+            mOut.writeObject("Test Output");
+            mOut.flush();
+            
         }catch(Exception e){  
             JOptionPane.showInputDialog("Erreur lors de la connection");
         }   
