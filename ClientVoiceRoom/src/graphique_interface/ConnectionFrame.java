@@ -156,10 +156,12 @@ public class ConnectionFrame extends javax.swing.JFrame {
                 microphone.start();
                 int bytesRead = 0;
                 byte[] soundData = new byte[1];
+                Thread inThread = new Thread(new SoundReceiver(mSocket));
+                inThread.start();
                 while(bytesRead != -1)
                 {
                     bytesRead = microphone.read(soundData, 0, soundData.length);
-                     System.out.println("toto");
+                    System.out.println("toto");
                     if(bytesRead >= 0)
                     {
                         mOut.write(soundData, 0, bytesRead);
