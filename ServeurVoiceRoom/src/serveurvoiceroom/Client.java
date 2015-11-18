@@ -72,7 +72,7 @@ public class Client {
                     List <Client> clients = room.getClients();
                     clients.add(this);
                     room.setClients(clients);
-                    Out.writeObject("Connexion accepté");
+                    Out.writeObject(true);
                     Out.flush();
                     Out.writeObject(room);
                     Out.flush();
