@@ -11,6 +11,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 /**
@@ -43,8 +45,10 @@ public class Client {
         this.socket = socket;
     }
     
-    public void run() {
-        InputStream inp = null;
+    public void run() throws IOException, ClassNotFoundException{
+        ObjectInputStream Int = new ObjectInputStream(socket.getInputStream());
+        ObjectOutputStream Out =  new ObjectOutputStream(socket.getOutputStream());
+        /*InputStream inp = null;
         BufferedReader brinp = null;
         DataOutputStream out = null;
         try {
@@ -53,17 +57,17 @@ public class Client {
             out = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {
             return;
-        }
+        }*/
         String line;
         while (true) {
             try {
-                line = brinp.readLine();
+                line = (String) Int.readObject();
                 if ((line == null) || line.equalsIgnoreCase("QUIT")) {
                     socket.close();
                     return;
                 } else {
-                    out.writeBytes(line + "\n\r");
-                    out.flush();
+                    Out.writeBytes(line + "\n\r");
+                    Out.flush();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
