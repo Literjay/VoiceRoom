@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 
 /**
  *
@@ -45,7 +46,7 @@ public class Client {
         this.socket = socket;
     }
     
-    public void run() throws IOException, ClassNotFoundException{
+    public void run(Room room) throws IOException, ClassNotFoundException{
         ObjectInputStream Int = new ObjectInputStream(socket.getInputStream());
         ObjectOutputStream Out =  new ObjectOutputStream(socket.getOutputStream());
         /*InputStream inp = null;
@@ -58,22 +59,28 @@ public class Client {
         } catch (IOException e) {
             return;
         }*/
-        System.out.println("test1");
         String line;
-        while (true) {
             try {
                 line = (String) Int.readObject();
                 if ((line == null) || line.equalsIgnoreCase("QUIT")) {
                     socket.close();
                     return;
                 } else {
-                    Out.writeBytes(line + "\n\r");
+                    this.setIdentifiant(line);
+                    line = (String) Int.readObject();
+                    this.setPassword(line);
+                    List <Client> clients = room.getClients();
+                    clients.add(this);
+                    room.setClients(clients);
+                    Out.writeObject("Connexion accepté");
+                    Out.flush();
+                    Out.writeObject(room);
                     Out.flush();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
                 return;
             }
-        }
+        
     }
 }

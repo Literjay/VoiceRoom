@@ -30,15 +30,14 @@ public class ServeurVoiceRoom {
             e.printStackTrace();
 
         }
+        Room room = new Room("Accueil");
         while (true) {
             try {
                 socket = serverSocket.accept();
-                new Client(socket).run();
+                new Client(socket).run(room);
             } catch (IOException e) {
                 System.out.println("I/O error: " + e);
             }
-            // new thread for a client
-            //new EchoThread(socket).start();
             
 
         }
