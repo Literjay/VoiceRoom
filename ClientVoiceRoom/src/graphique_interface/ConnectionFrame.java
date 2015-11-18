@@ -11,6 +11,10 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.TargetDataLine;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -137,6 +141,23 @@ public class ConnectionFrame extends javax.swing.JFrame {
                 }
                 Room room = new Room((String)jsRoom.get("name"));
                 room.setClients(clients);
+                
+                AudioFormat af = new AudioFormat(8000.0f,8,1,true,false);
+                DataLine.Info info = new DataLine.Info(TargetDataLine.class, af);
+                TargetDataLine microphone = (TargetDataLine)AudioSystem.getLine(info);
+                microphone.open(af);
+                microphone.start();
+                int bytesRead = 0;
+                byte[] soundData = new byte[1];
+                while(bytesRead != -1)
+                {
+                    bytesRead = microphone.read(soundData, 0, soundData.length);
+                    if(bytesRead >= 0)
+                    {
+                        mOut.write(soundData, 0, bytesRead);
+                    }
+                }
+                
                 PrincipaleFrame frame = new PrincipaleFrame();
                 frame.show();
             }
