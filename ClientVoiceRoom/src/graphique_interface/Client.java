@@ -13,15 +13,19 @@ import java.net.Socket;
  * @author pdelmotte
  */
 public class Client {
-    private String Identifiant;
+    private String identifiant;
     private String password;
     
+    
+    public Client(String name){
+        identifiant = name;
+    }
     public String getIdentifiant() {
-        return Identifiant;
+        return identifiant;
     }
 
     public void setIdentifiant(String Identifiant) {
-        this.Identifiant = Identifiant;
+        this.identifiant = Identifiant;
     }
 
     public String getPassword() {

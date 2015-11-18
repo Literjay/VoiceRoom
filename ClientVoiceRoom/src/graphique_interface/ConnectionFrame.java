@@ -67,6 +67,11 @@ public class ConnectionFrame extends javax.swing.JFrame {
         });
 
         button2.setLabel("Fermer");
+        button2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,7 +142,8 @@ public class ConnectionFrame extends javax.swing.JFrame {
                 JSONArray jsClients = (JSONArray)jsRoom.get("clients");
                 ArrayList<Client> clients = new ArrayList<Client>();
                 for(int i = 0; i<jsClients.size(); i++){
-                    Client c = (Client)jsClients.get(i);
+                    Client c = new Client((String)jsClients.get(i));
+                    clients.add(c);
                 }
                 Room room = new Room((String)jsRoom.get("name"));
                 room.setClients(clients);
@@ -146,15 +152,18 @@ public class ConnectionFrame extends javax.swing.JFrame {
                 DataLine.Info info = new DataLine.Info(TargetDataLine.class, af);
                 TargetDataLine microphone = (TargetDataLine)AudioSystem.getLine(info);
                 microphone.open(af);
+                System.out.println("MICRO OPEN");
                 microphone.start();
                 int bytesRead = 0;
                 byte[] soundData = new byte[1];
                 while(bytesRead != -1)
                 {
                     bytesRead = microphone.read(soundData, 0, soundData.length);
+                     System.out.println("toto");
                     if(bytesRead >= 0)
                     {
                         mOut.write(soundData, 0, bytesRead);
+                        System.out.println("titi");
                     }
                 }
                 
@@ -171,6 +180,10 @@ public class ConnectionFrame extends javax.swing.JFrame {
         }
           
     }//GEN-LAST:event_button1ActionPerformed
+
+    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+              // TODO add your handling code here:
+    }//GEN-LAST:event_button2ActionPerformed
 
     /**
      * @param args the command line arguments
