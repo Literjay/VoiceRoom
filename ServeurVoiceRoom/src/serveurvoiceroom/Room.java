@@ -36,5 +36,4 @@ public class Room {
     public Room(String name) {
         this.name = name;
     }
-    
-}
+    }
