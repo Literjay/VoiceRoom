@@ -37,7 +37,8 @@ public class ServeurVoiceRoom {
                 System.out.println("I/O error: " + e);
             }
             // new thread for a client
-            new EchoThread(socket).start();
+            //new EchoThread(socket).start();
+            new Client(socket).run();
         }
     }
     
