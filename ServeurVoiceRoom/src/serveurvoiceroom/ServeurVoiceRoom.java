@@ -20,7 +20,7 @@ public class ServeurVoiceRoom {
      * @param args the command line arguments
      */
     static final int PORT = 1777;
-    public static void main(String args[]) {
+    public static void main(String args[]) throws ClassNotFoundException {
         ServerSocket serverSocket = null;
         Socket socket = null;
 
@@ -33,12 +33,13 @@ public class ServeurVoiceRoom {
         while (true) {
             try {
                 socket = serverSocket.accept();
+                new Client(socket).run();
             } catch (IOException e) {
                 System.out.println("I/O error: " + e);
             }
             // new thread for a client
             //new EchoThread(socket).start();
-            new Client(socket).run();
+            
 
         }
     }

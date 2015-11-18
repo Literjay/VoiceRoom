@@ -58,6 +58,7 @@ public class Client {
         } catch (IOException e) {
             return;
         }*/
+        System.out.println("test1");
         String line;
         while (true) {
             try {
