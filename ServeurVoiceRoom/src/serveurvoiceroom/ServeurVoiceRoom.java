@@ -39,6 +39,7 @@ public class ServeurVoiceRoom {
             // new thread for a client
             //new EchoThread(socket).start();
             new Client(socket).run();
+
         }
     }
     
