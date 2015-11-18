@@ -72,10 +72,16 @@ public class Client {
                     List <Client> clients = room.getClients();
                     clients.add(this);
                     room.setClients(clients);
-                    Out.writeObject(true);
+                    Out.writeBoolean(true);
                     Out.flush();
                     Out.writeObject(room);
                     Out.flush();
+                    while(true){
+                        switch ((String) Int.readObject()) {
+                            case "":
+                                break;
+                        }
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();

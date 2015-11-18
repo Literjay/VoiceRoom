@@ -1,5 +1,6 @@
 package serveurvoiceroom;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public class Room {
     
-    private List<Client> Clients;
+    private List<Client> Clients = new ArrayList<Client>();
     private String name;
 
     public List<Client> getClients() {
