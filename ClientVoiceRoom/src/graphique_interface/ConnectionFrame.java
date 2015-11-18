@@ -5,15 +5,23 @@
  */
 package graphique_interface;
 
+import java.awt.Window;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Betty
  */
 public class ConnectionFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ConnectionFrame
-     */
+    protected Socket mSocket;
+    protected ObjectOutputStream mOut;
+    protected ObjectInputStream mInt;
+    
     public ConnectionFrame() {
         initComponents();
     }
@@ -51,6 +59,11 @@ public class ConnectionFrame extends javax.swing.JFrame {
         textField3.setText("textField3");
 
         button1.setLabel("Connection");
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
 
         button2.setLabel("Fermer");
 
@@ -101,6 +114,18 @@ public class ConnectionFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+        // TODO add your handling code here:
+        try{
+            mSocket = new Socket(InetAddress.getLocalHost(), 1777);
+            mOut = new ObjectOutputStream(mSocket.getOutputStream());
+            mOut.writeBytes("Test Output");
+            mInt = new ObjectInputStream(mSocket.getInputStream());
+        }catch(Exception e){  
+            JOptionPane.showInputDialog("Erreur lors de la connection");
+        }   
+    }//GEN-LAST:event_button1ActionPerformed
 
     /**
      * @param args the command line arguments
