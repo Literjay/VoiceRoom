@@ -129,15 +129,10 @@ public class Client {
              ObjectOutputStream Out =  new ObjectOutputStream(client.socketdata.getOutputStream());
              ObjectInputStream Int = new ObjectInputStream(client.socketdata.getInputStream());
              try{
-                    JSONObject jsRoom = new JSONObject();
-                    jsRoom.put("nom", room.getName());
-                    JSONArray jsClients = new JSONArray();
-                    for (Client c : room.getClients()){
-                        String name = c.getIdentifiant();
-                        jsClients.add(name);
-                    }
-                    jsRoom.put("clients", jsClients);
-                    Out.writeObject(jsRoom);
+                    
+                    Out.writeObject("Nouveau Client");
+                    Out.flush();
+                    Out.writeObject(this.Identifiant);
                     Out.flush();
 
                 } catch (IOException e) {
