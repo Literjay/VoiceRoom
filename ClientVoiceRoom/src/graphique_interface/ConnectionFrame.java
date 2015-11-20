@@ -180,25 +180,17 @@ public class ConnectionFrame extends javax.swing.JFrame {
                         Room room = new Room((String)jsRoom.get("name"));
                         room.setClients(clients);
 
-                        AudioFormat af = new AudioFormat(8000.0f,8,1,true,false);
-                        DataLine.Info info = new DataLine.Info(TargetDataLine.class, af);
-                        TargetDataLine microphone = (TargetDataLine)AudioSystem.getLine(info);
-                        microphone.open(af);
-                        System.out.println("MICRO OPEN");
-                        microphone.start();
                         int bytesRead = 0;
                         byte[] soundData = new byte[1];
-                        Thread inThread = new Thread(new SoundReceiver(mSocket));
-                        inThread.start();
                         
-                        Tool tool = new Tool();
+                        Tool tool = new Tool(mSocket);
                         this.setVisible(false);
                         PrincipaleFrame frame = new PrincipaleFrame(room, tool);
                         frame.setVisible(true);
                         
                         while(bytesRead != -1)
                         {
-                            bytesRead = microphone.read(soundData, 0, soundData.length);
+                            bytesRead = tool.micro.read(soundData, 0, soundData.length);
                             System.out.println("toto");
                             if(bytesRead >= 0)
                             {
