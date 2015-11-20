@@ -15,14 +15,14 @@ import java.util.List;
  */
 public class Room {
     
-    private List<Client> Clients = new ArrayList<Client>();
+    private ArrayList<Client> Clients = new ArrayList<Client>();
     private String name;
 
-    public List<Client> getClients() {
+    public ArrayList<Client> getClients() {
         return Clients;
     }
 
-    public void setClients(List<Client> Clients) {
+    public void setClients(ArrayList<Client> Clients) {
         this.Clients = Clients;
     }
 

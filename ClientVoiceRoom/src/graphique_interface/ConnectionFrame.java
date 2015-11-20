@@ -169,7 +169,6 @@ public class ConnectionFrame extends javax.swing.JFrame {
                     }
                 }
                 
-                //COUCOU//
                 PrincipaleFrame frame = new PrincipaleFrame();
                 frame.show();
             }

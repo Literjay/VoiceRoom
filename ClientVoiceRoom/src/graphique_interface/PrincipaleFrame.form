@@ -101,7 +101,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="list1" pref="230" max="32767" attributes="0"/>
+                  <Component id="mList" pref="230" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -110,14 +110,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="list1" max="32767" attributes="0"/>
+                  <Component id="mList" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="java.awt.List" name="list1">
+        <Component class="java.awt.List" name="mList">
         </Component>
       </SubComponents>
     </Container>

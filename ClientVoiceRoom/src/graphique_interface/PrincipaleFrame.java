@@ -5,15 +5,26 @@
  */
 package graphique_interface;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Betty
  */
 public class PrincipaleFrame extends javax.swing.JFrame {
-
+    Room mRoom;
     /**
      * Creates new form PrincipaleFrame
      */
+    
+     public PrincipaleFrame(Room room) {
+        mRoom = room;
+         ArrayList<Client> clients = mRoom.getClients();
+        for(Client c : clients){
+            mList.add(c.getIdentifiant());
+        }
+    }
+     
     public PrincipaleFrame() {
         initComponents();
     }
@@ -28,7 +39,7 @@ public class PrincipaleFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        list1 = new java.awt.List();
+        mList = new java.awt.List();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -50,14 +61,14 @@ public class PrincipaleFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addComponent(mList, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(mList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -194,6 +205,6 @@ public class PrincipaleFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private java.awt.List list1;
+    private java.awt.List mList;
     // End of variables declaration//GEN-END:variables
 }
