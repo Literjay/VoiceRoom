@@ -190,6 +190,12 @@ public class ConnectionFrame extends javax.swing.JFrame {
                         byte[] soundData = new byte[1];
                         Thread inThread = new Thread(new SoundReceiver(mSocket));
                         inThread.start();
+                        
+                        Tool tool = new Tool();
+                        this.setVisible(false);
+                        PrincipaleFrame frame = new PrincipaleFrame(room, tool);
+                        frame.setVisible(true);
+                        
                         while(bytesRead != -1)
                         {
                             bytesRead = microphone.read(soundData, 0, soundData.length);
@@ -201,8 +207,7 @@ public class ConnectionFrame extends javax.swing.JFrame {
                             }
                         }
 
-                        PrincipaleFrame frame = new PrincipaleFrame();
-                        frame.show();
+                        
                     }
                     
                 }catch(NumberFormatException e){
