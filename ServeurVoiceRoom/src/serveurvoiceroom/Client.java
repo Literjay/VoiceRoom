@@ -140,6 +140,21 @@ public class Client {
                         return;
                     }
         }
+        while(true){
+                ObjectOutputStream Out =  new ObjectOutputStream(this.socketdata.getOutputStream());
+                ObjectInputStream Int = new ObjectInputStream(this.socketdata.getInputStream());
+                try{
+                    String line = (String) Int.readObject();
+                      switch (line){
+                          case "":
+                              break;
+                      }            
+
+                   } catch (IOException e) {
+                           e.printStackTrace();
+                           return;
+                       }
+            }
         
     }
     
