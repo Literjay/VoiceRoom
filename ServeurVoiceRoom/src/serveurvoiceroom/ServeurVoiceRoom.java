@@ -39,7 +39,7 @@ public class ServeurVoiceRoom {
                 socket = serverSocket.accept();
                 if(Clients.containsKey(socket.getRemoteSocketAddress().toString())){
                     Clients.get(socket.getRemoteSocketAddress().toString()).setSocketdata(socket);
-                    Clients.get(socket.getRemoteSocketAddress().toString()).rundata();
+                    Clients.get(socket.getRemoteSocketAddress().toString()).rundata(room);
                 }
                 else {
                     Client client=new Client(socket);
