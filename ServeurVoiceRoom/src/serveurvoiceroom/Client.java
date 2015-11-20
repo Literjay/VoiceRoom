@@ -25,7 +25,26 @@ public class Client {
     private String Identifiant;
     private String password;
     protected Socket socket;
+    protected Socket socketdata;
+    private String ip;
 
+    public Socket getSocketdata() {
+        return socketdata;
+    }
+
+    public void setSocketdata(Socket socketdata) {
+        this.socketdata = socketdata;
+    }
+    
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+    
+    
     public Socket getSocket() {
         return socket;
     }
@@ -105,6 +124,18 @@ public class Client {
         
     }
     
+    public void rundata() throws IOException, ClassNotFoundException{
+         ObjectInputStream Int = new ObjectInputStream(socketdata.getInputStream());
+        ObjectOutputStream Out =  new ObjectOutputStream(socketdata.getOutputStream());
+        String line;
+        try{
+            line = (String) Int.readObject();
+        
+        } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+    }
     
     public static void sendToAll(byte[] byteArray, int q, List<Client> clients)
     {
