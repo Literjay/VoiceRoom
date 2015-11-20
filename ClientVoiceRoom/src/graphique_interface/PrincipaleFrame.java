@@ -5,6 +5,7 @@
  */
 package graphique_interface;
 
+import java.awt.List;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -12,6 +13,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,9 +22,10 @@ import java.util.logging.Logger;
  * @author Betty
  */
 public class PrincipaleFrame extends javax.swing.JFrame {
-    protected static Room mRoom;
-    protected static Tool mTool;
-    protected static Socket mSocketData;
+    protected  Room mRoom;
+    protected  Tool mTool;
+    protected  Socket mSocketData;
+    protected  Vector mListData;
     /**
      * Creates new form PrincipaleFrame
      */
@@ -31,10 +34,11 @@ public class PrincipaleFrame extends javax.swing.JFrame {
         mRoom = room;
         mTool = tool;
          ArrayList<Client> clients = mRoom.getClients();
+         mListData = new Vector();
         for(Client c : clients){
-            mList.add(c.getIdentifiant(), this);
-            
+           mListData.add(c.getIdentifiant());
         }
+         mList.setListData(mListData);
     }
      
     public PrincipaleFrame() {
@@ -114,14 +118,14 @@ public class PrincipaleFrame extends javax.swing.JFrame {
         button_soung.setBorderPainted(false);
         button_soung.setContentAreaFilled(false);
         button_soung.setDefaultCapable(false);
+        button_soung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_soungActionPerformed(evt);
+            }
+        });
 
         mList.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
         mList.setForeground(new java.awt.Color(51, 51, 51));
-        mList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(mList);
 
         jMenu1.setText("File");
@@ -170,13 +174,17 @@ public class PrincipaleFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_microActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_microActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_button_microActionPerformed
+
+    private void button_soungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_soungActionPerformed
+       
+    }//GEN-LAST:event_button_soungActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -204,8 +212,7 @@ public class PrincipaleFrame extends javax.swing.JFrame {
             
             public void run() {
                 new PrincipaleFrame().setVisible(true);
-                int ip = 1777;
-                    try {
+                try {
                         mSocketData = new Socket(InetAddress.getLocalHost(), mTool.getIp());
                         ObjectOutputStream mOut = new ObjectOutputStream(mSocketData.getOutputStream());
                         ObjectInputStream mInt = new ObjectInputStream(mSocketData.getInputStream());
@@ -214,18 +221,15 @@ public class PrincipaleFrame extends javax.swing.JFrame {
                                 String line = (String)mInt.readObject();
                                 System.out.println(line);
                                 switch(line){
-                                    
+                                    case "Nouveau Client":
+                                        mListData.add((String)mInt.readObject());
+                                        mList.setListData(mListData);
                                 }
                             } catch (Exception e) {
                             }
                         }
-                        
-                        
-                        
-                        
-                    } catch (IOException ex) {
-                        Logger.getLogger(PrincipaleFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                } catch (Exception e) {
+                }
             }
         });
     }
