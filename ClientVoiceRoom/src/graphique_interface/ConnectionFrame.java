@@ -45,11 +45,11 @@ public class ConnectionFrame extends javax.swing.JFrame {
         label1 = new java.awt.Label();
         label2 = new java.awt.Label();
         label3 = new java.awt.Label();
-        input_user = new java.awt.TextField();
-        input_password = new java.awt.TextField();
-        input_ip = new java.awt.TextField();
-        button1 = new java.awt.Button();
-        button2 = new java.awt.Button();
+        button_connection = new javax.swing.JButton();
+        button_close = new javax.swing.JButton();
+        input_user = new javax.swing.JTextField();
+        input_password = new javax.swing.JTextField();
+        input_ip = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,17 +59,17 @@ public class ConnectionFrame extends javax.swing.JFrame {
 
         label3.setText("Adresse IP :");
 
-        button1.setLabel("Connection");
-        button1.addActionListener(new java.awt.event.ActionListener() {
+        button_connection.setText("Connection");
+        button_connection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
+                button_connectionActionPerformed(evt);
             }
         });
 
-        button2.setLabel("Fermer");
-        button2.addActionListener(new java.awt.event.ActionListener() {
+        button_close.setText("Fermer");
+        button_close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button2ActionPerformed(evt);
+                button_closeActionPerformed(evt);
             }
         });
 
@@ -81,9 +81,9 @@ public class ConnectionFrame extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                        .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(button_connection)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                        .addComponent(button_close))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -92,100 +92,101 @@ public class ConnectionFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(input_user, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(input_password, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(input_ip, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(input_password)
+                            .addComponent(input_ip))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(input_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(input_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(input_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(input_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(input_ip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(button_connection)
+                    .addComponent(button_close))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-        // TODO add your handling code here:
-        
-        if(input_user.getText().length()!=0
-                &&input_password.getText().length()!=0
-                && Integer.decode(input_ip.getText())!=0){
-            try{
-            mSocket = new Socket(InetAddress.getLocalHost(), 1777);
-            mOut = new ObjectOutputStream(mSocket.getOutputStream());
-            mInt = new ObjectInputStream(mSocket.getInputStream());
-            mOut.writeObject(input_user.getText());
-            mOut.flush();
-            mOut.writeObject(input_password.getText());
-            mOut.flush();
-            System.out.println("test1");
-            if(mInt.readBoolean()){
-                
-                JSONObject jsRoom = (JSONObject) mInt.readObject();
-                JSONArray jsClients = (JSONArray)jsRoom.get("clients");
-                ArrayList<Client> clients = new ArrayList<Client>();
-                for(int i = 0; i<jsClients.size(); i++){
-                    Client c = new Client((String)jsClients.get(i));
-                    clients.add(c);
-                }
-                Room room = new Room((String)jsRoom.get("name"));
-                room.setClients(clients);
-                
-                AudioFormat af = new AudioFormat(8000.0f,8,1,true,false);
-                DataLine.Info info = new DataLine.Info(TargetDataLine.class, af);
-                TargetDataLine microphone = (TargetDataLine)AudioSystem.getLine(info);
-                microphone.open(af);
-                System.out.println("MICRO OPEN");
-                microphone.start();
-                int bytesRead = 0;
-                byte[] soundData = new byte[1];
-                Thread inThread = new Thread(new SoundReceiver(mSocket));
-                inThread.start();
-                while(bytesRead != -1)
-                {
-                    bytesRead = microphone.read(soundData, 0, soundData.length);
-                    System.out.println("toto");
-                    if(bytesRead >= 0)
-                    {
-                        mOut.write(soundData, 0, bytesRead);
-                        System.out.println("titi");
+    private void button_connectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_connectionActionPerformed
+        if(input_user.getText().isEmpty()
+                &&input_password.getText().isEmpty()
+                && input_ip.getText().isEmpty()){
+                try{
+                    int ip = Integer.parseInt(input_ip.getText());
+                    mSocket = new Socket(InetAddress.getLocalHost(), ip);
+                    mOut = new ObjectOutputStream(mSocket.getOutputStream());
+                    mInt = new ObjectInputStream(mSocket.getInputStream());
+                    mOut.writeObject(input_user.getText());
+                    mOut.flush();
+                    mOut.writeObject(input_password.getText());
+                    mOut.flush();
+                    System.out.println("test1");
+                    if(mInt.readBoolean()){
+
+                        JSONObject jsRoom = (JSONObject) mInt.readObject();
+                        JSONArray jsClients = (JSONArray)jsRoom.get("clients");
+                        ArrayList<Client> clients = new ArrayList<Client>();
+                        for(int i = 0; i<jsClients.size(); i++){
+                            Client c = new Client((String)jsClients.get(i));
+                            clients.add(c);
+                        }
+                        Room room = new Room((String)jsRoom.get("name"));
+                        room.setClients(clients);
+
+                        AudioFormat af = new AudioFormat(8000.0f,8,1,true,false);
+                        DataLine.Info info = new DataLine.Info(TargetDataLine.class, af);
+                        TargetDataLine microphone = (TargetDataLine)AudioSystem.getLine(info);
+                        microphone.open(af);
+                        System.out.println("MICRO OPEN");
+                        microphone.start();
+                        int bytesRead = 0;
+                        byte[] soundData = new byte[1];
+                        Thread inThread = new Thread(new SoundReceiver(mSocket));
+                        inThread.start();
+                        while(bytesRead != -1)
+                        {
+                            bytesRead = microphone.read(soundData, 0, soundData.length);
+                            System.out.println("toto");
+                            if(bytesRead >= 0)
+                            {
+                                mOut.write(soundData, 0, bytesRead);
+                                System.out.println("titi");
+                            }
+                        }
+
+                        PrincipaleFrame frame = new PrincipaleFrame();
+                        frame.show();
                     }
+                    
+                }catch(NumberFormatException e){
+                    JOptionPane.showMessageDialog(this, "L'IP doit être un chiffre", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }catch(Exception e){  
+                    JOptionPane.showMessageDialog(this, "Erreur lors de la connexion", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
-                
-                PrincipaleFrame frame = new PrincipaleFrame();
-                frame.show();
-            }
-            
-            
-        }catch(Exception e){  
-            JOptionPane.showInputDialog("Erreur lors de la connection");
-        } 
         }else{
-            JOptionPane.showInputDialog("Un ou plusieurs champs sont éronné");
+            JOptionPane.showMessageDialog(this, "Un ou plusieurs champs non pas été saisie", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
           
-    }//GEN-LAST:event_button1ActionPerformed
+    }//GEN-LAST:event_button_connectionActionPerformed
 
-    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
-              // TODO add your handling code here:
-    }//GEN-LAST:event_button2ActionPerformed
+    private void button_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_closeActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_button_closeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,11 +224,11 @@ public class ConnectionFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button button1;
-    private java.awt.Button button2;
-    private java.awt.TextField input_ip;
-    private java.awt.TextField input_password;
-    private java.awt.TextField input_user;
+    private javax.swing.JButton button_close;
+    private javax.swing.JButton button_connection;
+    private javax.swing.JTextField input_ip;
+    private javax.swing.JTextField input_password;
+    private javax.swing.JTextField input_user;
     private java.awt.Label label1;
     private java.awt.Label label2;
     private java.awt.Label label3;
