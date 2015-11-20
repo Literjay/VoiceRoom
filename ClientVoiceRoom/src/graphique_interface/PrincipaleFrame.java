@@ -32,7 +32,8 @@ public class PrincipaleFrame extends javax.swing.JFrame {
         mTool = tool;
          ArrayList<Client> clients = mRoom.getClients();
         for(Client c : clients){
-            mList.add(c.getIdentifiant());
+            mList.add(c.getIdentifiant(), this);
+            
         }
     }
      
