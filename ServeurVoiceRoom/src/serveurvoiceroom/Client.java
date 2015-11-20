@@ -124,17 +124,38 @@ public class Client {
         
     }
     
-    public void rundata() throws IOException, ClassNotFoundException{
-         ObjectInputStream Int = new ObjectInputStream(socketdata.getInputStream());
-        ObjectOutputStream Out =  new ObjectOutputStream(socketdata.getOutputStream());
-        String line;
-        try{
-            line = (String) Int.readObject();
-        
-        } catch (IOException e) {
-                e.printStackTrace();
-                return;
+    public void rundata(Room room) throws IOException, ClassNotFoundException{
+        for(Client client : room.getClients()){
+             ObjectOutputStream Out =  new ObjectOutputStream(client.socketdata.getOutputStream());
+             ObjectInputStream Int = new ObjectInputStream(client.socketdata.getInputStream());
+             try{
+                    
+                    Out.writeObject("Nouveau Client");
+                    Out.flush();
+                    Out.writeObject(this.Identifiant);
+                    Out.flush();
+
+                } catch (IOException e) {
+                        e.printStackTrace();
+                        return;
+                    }
+        }
+        while(true){
+                ObjectOutputStream Out =  new ObjectOutputStream(this.socketdata.getOutputStream());
+                ObjectInputStream Int = new ObjectInputStream(this.socketdata.getInputStream());
+                try{
+                    String line = (String) Int.readObject();
+                      switch (line){
+                          case "":
+                              break;
+                      }            
+
+                   } catch (IOException e) {
+                           e.printStackTrace();
+                           return;
+                       }
             }
+        
     }
     
     public static void sendToAll(byte[] byteArray, int q, List<Client> clients)
