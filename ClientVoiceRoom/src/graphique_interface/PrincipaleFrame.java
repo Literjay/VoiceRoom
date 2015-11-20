@@ -20,9 +20,9 @@ import java.util.logging.Logger;
  * @author Betty
  */
 public class PrincipaleFrame extends javax.swing.JFrame {
-    protected Room mRoom;
-    protected Tool mTool;
-    protected Socket mSocketData;
+    protected static Room mRoom;
+    protected static Tool mTool;
+    protected static Socket mSocketData;
     /**
      * Creates new form PrincipaleFrame
      */
@@ -191,7 +191,7 @@ public class PrincipaleFrame extends javax.swing.JFrame {
                 new PrincipaleFrame().setVisible(true);
                 int ip = 1777;
                     try {
-                        Socket mSocketData = new Socket(InetAddress.getLocalHost(), ip);
+                        mSocketData = new Socket(InetAddress.getLocalHost(), mTool.getIp());
                         ObjectOutputStream mOut = new ObjectOutputStream(mSocketData.getOutputStream());
                         ObjectInputStream mInt = new ObjectInputStream(mSocketData.getInputStream());
                         while(true){

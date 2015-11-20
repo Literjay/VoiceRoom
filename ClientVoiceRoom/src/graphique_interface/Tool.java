@@ -11,7 +11,6 @@ package graphique_interface;
  */
 public class Tool {
     protected int mIp;
-    protected 
     
     
     public void setIp(int ip){
