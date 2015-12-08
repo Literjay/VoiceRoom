@@ -20,7 +20,7 @@ import org.json.simple.JSONObject;
  *
  * @author pdelmotte
  */
-public class Client {
+public class Client extends Thread{
     
     private String Identifiant;
     private String password;
@@ -92,7 +92,6 @@ public class Client {
                     room.setClients(clients);
                     Out.writeBoolean(true);
                     Out.flush();
-                    
                     JSONObject jsRoom = new JSONObject();
                     jsRoom.put("nom", room.getName());
                     JSONArray jsClients = new JSONArray();
