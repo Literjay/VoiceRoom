@@ -155,12 +155,11 @@ public class ConnectionFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_connectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_connectionActionPerformed
-        if(input_user.getText().isEmpty()
-                &&input_password.getText().isEmpty()
-                && input_ip.getText().isEmpty()){
+        if(!input_user.getText().isEmpty()
+                &&!input_password.getText().isEmpty()
+                && !input_ip.getText().isEmpty()){
                 try{
-                    int ip = Integer.parseInt(input_ip.getText());
-                    mSocket = new Socket(InetAddress.getLocalHost(), ip);
+                    mSocket = new Socket(input_ip.getText(), 1777);
                     mOut = new ObjectOutputStream(mSocket.getOutputStream());
                     mInt = new ObjectInputStream(mSocket.getInputStream());
                     mOut.writeObject(input_user.getText());
@@ -202,8 +201,6 @@ public class ConnectionFrame extends javax.swing.JFrame {
                         
                     }
                     
-                }catch(NumberFormatException e){
-                    JOptionPane.showMessageDialog(this, "L'IP doit être un chiffre", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }catch(Exception e){  
                     JOptionPane.showMessageDialog(this, "Erreur lors de la connexion", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
