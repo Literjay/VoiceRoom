@@ -183,18 +183,8 @@ public class ConnectionFrame extends javax.swing.JFrame {
                         Tool tool = new Tool(mSocket);
                         this.setVisible(false);
                         
-                        PrincipaleFrame2 frame = new PrincipaleFrame2();
+                        PrincipaleFrame frame = new PrincipaleFrame(room,tool,mSocket);
                         frame.setVisible(true);
-                        while(bytesRead != -1)
-                        {
-                            bytesRead = tool.micro.read(soundData, 0, soundData.length);
-                            System.out.println("toto");
-                            if(bytesRead >= 0)
-                            {
-                                mOut.write(soundData, 0, bytesRead);
-                                System.out.println("titi");
-                            }
-                        }
 
                         
                     }

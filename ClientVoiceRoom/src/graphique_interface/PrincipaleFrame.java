@@ -30,14 +30,14 @@ public class PrincipaleFrame extends javax.swing.JFrame {
      * Creates new form PrincipaleFrame
      */
     
-    /* public PrincipaleFrame(Room room, Tool tool) {
+     public PrincipaleFrame(Room room, Tool tool , Socket socket) {
          
         initComponents();
         button_micro.setOpaque(true);
         button_soung.setOpaque(true);              
         mRoom = room;
         mTool = tool;
-       
+        mSocketData = socket;
          ArrayList<Client> clients = mRoom.getClients();
          mListData = new Vector();
         for(Client c : clients){
@@ -47,7 +47,7 @@ public class PrincipaleFrame extends javax.swing.JFrame {
          
   
         
-    }*/
+    }
      
     public PrincipaleFrame() {
         initComponents();
@@ -236,7 +236,29 @@ public class PrincipaleFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             
             public void run() {
-                new PrincipaleFrame().setVisible(true);
+                    
+                    int bytesRead = 0;
+                    byte[] soundData = new byte[1];
+                    ObjectOutputStream mOut;
+                    ObjectInputStream mInt;
+                try {
+                    mOut = new ObjectOutputStream(mSocketData.getOutputStream());
+                    mInt = new ObjectInputStream(mSocketData.getInputStream());
+                    
+                    while(bytesRead != -1)
+                        {
+                            bytesRead = mTool.micro.read(soundData, 0, soundData.length);
+                            System.out.println("toto");
+                            if(bytesRead >= 0)
+                            {
+                                mOut.write(soundData, 0, bytesRead);
+                                System.out.println("titi");
+                            }
+                        }
+                } 
+                   catch (IOException ex) {
+                    Logger.getLogger(PrincipaleFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } 
                /* try {
                         //mSocketData = new Socket(InetAddress.getLocalHost(), mTool.getIp());
                         ObjectOutputStream mOut = new ObjectOutputStream(mSocketData.getOutputStream());
