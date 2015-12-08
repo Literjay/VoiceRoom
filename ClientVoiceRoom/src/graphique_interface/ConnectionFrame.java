@@ -183,7 +183,7 @@ public class ConnectionFrame extends javax.swing.JFrame {
                         Tool tool = new Tool(mSocket);
                         this.setVisible(false);
                         
-                        PrincipaleFrame frame = new PrincipaleFrame(room,tool,mSocket);
+                        PrincipaleFrame frame = new PrincipaleFrame(room,tool,mOut,mInt);
                         frame.setVisible(true);
                         
                     }

@@ -24,20 +24,22 @@ import java.util.logging.Logger;
 public class PrincipaleFrame extends javax.swing.JFrame {
     protected  Room mRoom;
     protected  Tool mTool;
-    protected  Socket mSocketData;
+    protected  ObjectOutputStream mOut;
+    protected  ObjectInputStream mIn;
     protected  Vector mListData;
     /**
      * Creates new form PrincipaleFrame
      */
     
-     public PrincipaleFrame(Room room, Tool tool , Socket socket) {
+     public PrincipaleFrame(Room room, Tool tool ,ObjectOutputStream out, ObjectInputStream in) {
          
         initComponents();
         button_micro.setOpaque(true);
         button_soung.setOpaque(true);              
         mRoom = room;
         mTool = tool;
-        mSocketData = socket;
+        mIn= in;
+        mOut = out;
          ArrayList<Client> clients = mRoom.getClients();
          mListData = new Vector();
         for(Client c : clients){
@@ -241,12 +243,8 @@ public class PrincipaleFrame extends javax.swing.JFrame {
                     
                     int bytesRead = 0;
                     byte[] soundData = new byte[1];
-                    ObjectOutputStream mOut;
-                    ObjectInputStream mInt;
                 try {
-                    mOut = new ObjectOutputStream(mSocketData.getOutputStream());
-                    mInt = new ObjectInputStream(mSocketData.getInputStream());
-                    
+                    System.out.println("en attente");
                     while(bytesRead != -1)
                         {
                             bytesRead = mTool.micro.read(soundData, 0, soundData.length);
