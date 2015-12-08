@@ -44,6 +44,7 @@ public class ServeurVoiceRoom {
                 else {*/
                     Client client=new Client(socket,room);
                     Clients.put(socket.getRemoteSocketAddress().toString(), client);
+                    System.out.println(socket.getRemoteSocketAddress());
                     client.start();
                 //}
             } catch (IOException e) {

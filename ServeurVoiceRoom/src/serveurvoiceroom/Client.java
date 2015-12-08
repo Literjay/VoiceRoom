@@ -27,18 +27,9 @@ public class Client extends Thread{
     private String Identifiant;
     private String password;
     protected Socket socket;
-    protected Socket socketdata;
     protected Room room;
     private String ip;
 
-    public Socket getSocketdata() {
-        return socketdata;
-    }
-
-    public void setSocketdata(Socket socketdata) {
-        this.socketdata = socketdata;
-    }
-    
     public String getIp() {
         return ip;
     }
@@ -111,6 +102,7 @@ public class Client extends Thread{
                     
                     Out.writeObject(jsRoom);
                     Out.flush();
+                    sendList(clients,this);
                     int bytesRead = 0;
                     byte[] inBytes = new byte[1];
                     while(bytesRead != -1)
@@ -118,7 +110,7 @@ public class Client extends Thread{
                         try{bytesRead = Int.read(inBytes, 0, inBytes.length);}catch (IOException e){}
                         if(bytesRead >= 0)
                         {
-                            sendToAll(inBytes, bytesRead,clients);
+                            sendToAll(inBytes, bytesRead,clients,this);
                         }
                     }
                 }
@@ -130,7 +122,7 @@ public class Client extends Thread{
         }
         
     }
-    
+    /*
     public void rundata(Room room) throws IOException, ClassNotFoundException{
         for(Client client : room.getClients()){
              ObjectOutputStream Out =  new ObjectOutputStream(client.socketdata.getOutputStream());
@@ -164,23 +156,48 @@ public class Client extends Thread{
             }
         
     }
-    
-    public static void sendToAll(byte[] byteArray, int q, List<Client> clients)
+    */
+    public static void sendToAll(byte[] byteArray, int q, List<Client> clients,Client client)
     {
         Iterator<Client> sockIt = clients.iterator();
         while(sockIt.hasNext())
         {
             Client temp = sockIt.next();
-            DataOutputStream tempOut = null;
-            try
-            {
-                tempOut = new DataOutputStream(temp.getSocket().getOutputStream());
-            } catch (IOException e1)
-            {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
+            if(temp.getIdentifiant()!=client.getIdentifiant()){
+                
+                DataOutputStream tempOut = null;
+                try
+                {
+                    tempOut = new DataOutputStream(temp.getSocket().getOutputStream());
+                } catch (IOException e1)
+                {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                try{tempOut.write(byteArray, 0, q);}catch (IOException e){}
             }
-            try{tempOut.write(byteArray, 0, q);}catch (IOException e){}
+        }
+    }
+    
+    public static void sendList(List<Client> clients,Client client)
+    {
+        Iterator<Client> sockIt = clients.iterator();
+        while(sockIt.hasNext())
+        {
+            Client temp = sockIt.next();
+            if(temp.getIdentifiant()!=client.getIdentifiant()){
+                
+                DataOutputStream tempOut = null;
+                try
+                {
+                    tempOut = new DataOutputStream(temp.getSocket().getOutputStream());
+                } catch (IOException e1)
+                {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                try{tempOut.writeUTF("Nouveau Client");tempOut.writeUTF(client.getIdentifiant());tempOut.flush();}catch (IOException e){}
+            }
         }
     }
 }
