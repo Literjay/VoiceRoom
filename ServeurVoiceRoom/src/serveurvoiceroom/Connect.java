@@ -1,25 +1,34 @@
 package serveurvoiceroom;
 
 //
-
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class Connect {
-  public static void main(String[] args) {      
-    try {
-      Class.forName("org.postgresql.Driver"); // Changer de driver si BD autre que Postgres
-      System.out.println("Driver O.K.");
 
-      String url = "URL DE LA DB";
-      String user = "USER";
-      String passwd = "PASSWORD";
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://192.168.1.101:3306/voiceroom";
+        String user = "admin";
+        String passwd = "Formation";
 
-      Connection conn = DriverManager.getConnection(url, user, passwd);
-      System.out.println("Connexion effective !");         
-         
-    } catch (Exception e) {
-      e.printStackTrace();
-    }      
-  }
+        try {
+            System.out.println("chargement du driver");
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("récupération de la connexion");
+            Connection con = DriverManager.getConnection(url, user, passwd);
+            System.out.println("création d'un statement");
+            Statement requete = con.createStatement();
+            System.out.println("execution d'une requete");
+            ResultSet resultat = requete.executeQuery("select * from users");
+            while (resultat.next()) {
+                System.out.println(resultat.getString(1) + "  " + resultat.getString(2));
+            };
+            System.out.println("fin");
+        } catch (Exception e) {
+            System.out.println("Exception");
+            e.printStackTrace();
+        }
+    }
 }
