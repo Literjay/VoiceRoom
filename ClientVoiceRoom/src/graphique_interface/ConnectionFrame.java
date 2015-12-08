@@ -185,7 +185,6 @@ public class ConnectionFrame extends javax.swing.JFrame {
                         
                         PrincipaleFrame frame = new PrincipaleFrame(room,tool,mSocket);
                         frame.setVisible(true);
-
                         
                     }
                     

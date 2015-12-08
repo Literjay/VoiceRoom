@@ -43,6 +43,8 @@ public class PrincipaleFrame extends javax.swing.JFrame {
         for(Client c : clients){
            mListData.add(c.getIdentifiant());
         }
+        String [] args = null;
+        this.main(args);
          //mList.setListData(mListData);
          
   
