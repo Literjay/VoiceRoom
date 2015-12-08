@@ -27,6 +27,7 @@ public class Client extends Thread{
     private String Identifiant;
     private String password;
     protected Socket socket;
+    protected Socket socketData;
     protected Room room;
     private String ip;
 
@@ -68,6 +69,16 @@ public class Client extends Thread{
         this.socket = socket;
         this.room=room;
     }
+
+    public Socket getSocketData() {
+        return socketData;
+    }
+
+    public void setSocketData(Socket socketData) {
+        this.socketData = socketData;
+    }
+    
+    
     
     @Override
     public void run(){
@@ -168,13 +179,16 @@ public class Client extends Thread{
                 DataOutputStream tempOut = null;
                 try
                 {
-                    tempOut = new DataOutputStream(temp.getSocket().getOutputStream());
+                 
+
+                   tempOut = new DataOutputStream(temp.getSocket().getOutputStream());
                 } catch (IOException e1)
                 {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
-                try{tempOut.write(byteArray, 0, q);}catch (IOException e){}
+                try{
+                    tempOut.write(byteArray, 0, q);}catch (IOException e){}
             }
         }
     }
@@ -190,13 +204,20 @@ public class Client extends Thread{
                 DataOutputStream tempOut = null;
                 try
                 {
-                    tempOut = new DataOutputStream(temp.getSocket().getOutputStream());
+                    tempOut = new DataOutputStream(temp.getSocketData().getOutputStream());
                 } catch (IOException e1)
                 {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
-                try{tempOut.writeUTF("Nouveau Client");tempOut.writeUTF(client.getIdentifiant());tempOut.flush();}catch (IOException e){}
+                try{
+                    tempOut.writeUTF("Nouveau Client");
+                    tempOut.flush();
+                    tempOut.writeUTF(client.getIdentifiant());
+                    tempOut.flush();
+                }catch (IOException e){
+                    int i = 0;
+                }
             }
         }
     }

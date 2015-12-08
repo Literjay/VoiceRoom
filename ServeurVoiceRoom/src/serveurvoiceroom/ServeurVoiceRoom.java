@@ -36,17 +36,16 @@ public class ServeurVoiceRoom {
         Map <String,Client> Clients=new HashMap <String, Client> ();
         while (true) {
             try {
-                socket = serverSocket.accept();/*
+                socket = serverSocket.accept();
                 if(Clients.containsKey(socket.getRemoteSocketAddress().toString())){
-                    Clients.get(socket.getRemoteSocketAddress().toString()).setSocketdata(socket);
-                    Clients.get(socket.getRemoteSocketAddress().toString()).rundata(room);
+                    Clients.get(socket.getRemoteSocketAddress().toString()).setSocketData(socket);
                 }
-                else {*/
+                else {
                     Client client=new Client(socket,room);
                     Clients.put(socket.getRemoteSocketAddress().toString(), client);
                     System.out.println(socket.getRemoteSocketAddress());
                     client.start();
-                //}
+                }
             } catch (IOException e) {
                 System.out.println("I/O error: " + e);
             }
