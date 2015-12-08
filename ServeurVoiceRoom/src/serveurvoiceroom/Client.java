@@ -11,6 +11,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -95,34 +99,37 @@ public class Client extends Thread{
                     this.setIdentifiant(line);
                     line = (String) Int.readObject();
                     this.setPassword(line);
-                    List <Client> clients = room.getClients();
-                    clients.add(this);
-                    room.setClients(clients);
-                    Out.writeBoolean(true);
-                    Out.flush();
-                    JSONObject jsRoom = new JSONObject();
-                    jsRoom.put("nom", room.getName());
-                    JSONArray jsClients = new JSONArray();
-                    for (Client c : clients){
-                        String name = c.getIdentifiant();
-                        jsClients.add(name);
-                    }
                     
-                    
-                    jsRoom.put("clients", jsClients);
-                    
-                    Out.writeObject(jsRoom);
-                    Out.flush();
-                    ObjectOutputStream OutData = new ObjectOutputStream(this.getSocketData().getOutputStream());
-                    //sendList(clients,this,OutData);
-                    int bytesRead = 0;
-                    byte[] inBytes = new byte[1];
-                    while(bytesRead != -1)
-                    {
-                        try{bytesRead = Int.read(inBytes, 0, inBytes.length);}catch (IOException e){}
-                        if(bytesRead >= 0)
+                    if(authentification(this)){
+                        List <Client> clients = room.getClients();
+                        clients.add(this);
+                        room.setClients(clients);
+                        Out.writeBoolean(true);
+                        Out.flush();
+                        JSONObject jsRoom = new JSONObject();
+                        jsRoom.put("nom", room.getName());
+                        JSONArray jsClients = new JSONArray();
+                        for (Client c : clients){
+                            String name = c.getIdentifiant();
+                            jsClients.add(name);
+                        }
+
+
+                        jsRoom.put("clients", jsClients);
+
+                        Out.writeObject(jsRoom);
+                        Out.flush();
+                        ObjectOutputStream OutData = new ObjectOutputStream(this.getSocketData().getOutputStream());
+                        //sendList(clients,this,OutData);
+                        int bytesRead = 0;
+                        byte[] inBytes = new byte[1];
+                        while(bytesRead != -1)
                         {
-                            sendToAll(inBytes, bytesRead,clients,this);
+                            try{bytesRead = Int.read(inBytes, 0, inBytes.length);}catch (IOException e){}
+                            if(bytesRead >= 0)
+                            {
+                                sendToAll(inBytes, bytesRead,clients,this);
+                            }
                         }
                     }
                 }
@@ -179,4 +186,35 @@ public class Client extends Thread{
             }
         }
     }
+    
+    
+        public boolean authentification(Client unclient) {
+        String url = "jdbc:mysql://192.168.1.101:3306/voiceroom";
+        String user = "admin";
+        String passwd = "Formation";
+        
+        String nameClient = unclient.getIdentifiant();
+        String pwdClient = unclient.getPassword();
+        boolean authentified = true;
+        try {
+            System.out.println("chargement du driver");
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("récupération de la connexion");
+            Connection con = DriverManager.getConnection(url, user, passwd);
+            System.out.println("création d'un statement");
+            Statement requete = con.createStatement();
+            System.out.println("execution d'une requete");
+            ResultSet resultat = requete.executeQuery("select * from users where nom='"+nameClient+"' and password='"+pwdClient+"'");
+
+            if(!resultat.next()){
+                authentified = false;
+            }
+            System.out.println("fin");
+        } catch (Exception e) {
+            System.out.println("Exception");
+            e.printStackTrace();
+        }
+        return authentified;
+    }
+    
 }

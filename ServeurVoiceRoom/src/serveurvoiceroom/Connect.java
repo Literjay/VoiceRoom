@@ -8,14 +8,14 @@ import java.sql.Statement;
 
 public class Connect {
 
-    public static void main(Client unclient) {
+    public boolean authentification(Client unclient) {
         String url = "jdbc:mysql://192.168.1.101:3306/voiceroom";
         String user = "admin";
         String passwd = "Formation";
         
         String nameClient = unclient.getName();
         String pwdClient = unclient.getPassword();
-
+        boolean authentified = true;
         try {
             System.out.println("chargement du driver");
             Class.forName("com.mysql.jdbc.Driver");
@@ -28,10 +28,14 @@ public class Connect {
             while (resultat.next()) {
                 System.out.println(resultat.getString(1) + "  " + resultat.getString(2));
             };
+            if(!resultat.next()){
+                authentified = false;
+            }
             System.out.println("fin");
         } catch (Exception e) {
             System.out.println("Exception");
             e.printStackTrace();
         }
+        return authentified;
     }
 }
