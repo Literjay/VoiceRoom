@@ -30,22 +30,48 @@ public class PrincipaleFrame extends javax.swing.JFrame {
      * Creates new form PrincipaleFrame
      */
     
-     public PrincipaleFrame(Room room, Tool tool) {
+    /* public PrincipaleFrame(Room room, Tool tool) {
+         
+        initComponents();
+        button_micro.setOpaque(true);
+        button_soung.setOpaque(true);              
         mRoom = room;
         mTool = tool;
+       
          ArrayList<Client> clients = mRoom.getClients();
          mListData = new Vector();
         for(Client c : clients){
            mListData.add(c.getIdentifiant());
         }
-         mList.setListData(mListData);
-    }
+         //mList.setListData(mListData);
+         
+  
+        
+    }*/
      
     public PrincipaleFrame() {
         initComponents();
-        button_micro.setOpaque(true);
-        button_soung.setOpaque(true);
-        
+       /* button_micro.setOpaque(true);
+        button_soung.setOpaque(true);*/
+    /*    this.setVisible(true);
+                try {
+                        mSocketData = new Socket(mTool.getIp(),1777 );
+                        ObjectOutputStream mOut = new ObjectOutputStream(mSocketData.getOutputStream());
+                        ObjectInputStream mInt = new ObjectInputStream(mSocketData.getInputStream());
+                        while(true){
+                            try {
+                                String line = (String)mInt.readObject();
+                                System.out.println(line);
+                                switch(line){
+                                    case "Nouveau Client":
+                                        mListData.add((String)mInt.readObject());
+                                        mList.setListData(mListData);
+                                }
+                            } catch (Exception e) {
+                            }
+                        }
+                } catch (Exception e) {
+                }*/
     }
 
     /**
@@ -89,7 +115,7 @@ public class PrincipaleFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,15 +170,14 @@ public class PrincipaleFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(button_micro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(button_soung, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,8 +237,8 @@ public class PrincipaleFrame extends javax.swing.JFrame {
             
             public void run() {
                 new PrincipaleFrame().setVisible(true);
-                try {
-                        mSocketData = new Socket(InetAddress.getLocalHost(), mTool.getIp());
+               /* try {
+                        //mSocketData = new Socket(InetAddress.getLocalHost(), mTool.getIp());
                         ObjectOutputStream mOut = new ObjectOutputStream(mSocketData.getOutputStream());
                         ObjectInputStream mInt = new ObjectInputStream(mSocketData.getInputStream());
                         while(true){
@@ -229,7 +254,7 @@ public class PrincipaleFrame extends javax.swing.JFrame {
                             }
                         }
                 } catch (Exception e) {
-                }
+                }*/
             }
         });
     }

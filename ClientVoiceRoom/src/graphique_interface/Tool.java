@@ -17,7 +17,7 @@ import javax.sound.sampled.TargetDataLine;
 * @author Betty
 */
 public class Tool {
-   protected int mIp;
+   protected String mIp;
    protected boolean Etatmicrophone;
    protected TargetDataLine micro;
    protected Socket mSocket;
@@ -44,11 +44,11 @@ public class Tool {
        this.Etatheadset=false;
    }
    
-   public void setIp(int ip){
+   public void setIp(String ip){
        mIp = ip;
    }
    
-   public int getIp(){
+   public String getIp(){
        return mIp;
    }
 

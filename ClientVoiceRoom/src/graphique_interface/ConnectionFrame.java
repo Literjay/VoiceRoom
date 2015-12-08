@@ -166,7 +166,6 @@ public class ConnectionFrame extends javax.swing.JFrame {
                     mOut.flush();
                     mOut.writeObject(input_password.getText());
                     mOut.flush();
-                    System.out.println("test1");
                     if(mInt.readBoolean()){
 
                         JSONObject jsRoom = (JSONObject) mInt.readObject();
@@ -181,12 +180,11 @@ public class ConnectionFrame extends javax.swing.JFrame {
 
                         int bytesRead = 0;
                         byte[] soundData = new byte[1];
-                        
                         Tool tool = new Tool(mSocket);
                         this.setVisible(false);
-                        PrincipaleFrame frame = new PrincipaleFrame(room, tool);
-                        frame.setVisible(true);
                         
+                        PrincipaleFrame2 frame = new PrincipaleFrame2();
+                        frame.setVisible(true);
                         while(bytesRead != -1)
                         {
                             bytesRead = tool.micro.read(soundData, 0, soundData.length);
@@ -202,7 +200,7 @@ public class ConnectionFrame extends javax.swing.JFrame {
                     }
                     
                 }catch(Exception e){  
-                    JOptionPane.showMessageDialog(this, "Erreur lors de la connexion", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Erreur lors de la connexion :"+e, "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
         }else{
             JOptionPane.showMessageDialog(this, "Un ou plusieurs champs non pas été saisie", "Erreur", JOptionPane.ERROR_MESSAGE);
