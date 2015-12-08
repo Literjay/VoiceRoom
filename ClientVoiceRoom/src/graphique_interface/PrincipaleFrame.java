@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
 /**
@@ -43,10 +44,10 @@ public class PrincipaleFrame extends javax.swing.JFrame {
         mIn= in;
         mOut = out;
          ArrayList<Client> clients = mRoom.getClients();
-         mListData = new Vector();
         for(Client c : clients){
-           mListData.add(c.getIdentifiant());
-           mList.add(c.getIdentifiant(), new Component() {});
+            DefaultListModel modele = new DefaultListModel();
+        modele.addElement("- " + c.getIdentifiant());
+        mList.setModel(modele);
         }
         String [] args = null;
         this.main(args);
