@@ -213,6 +213,9 @@ public class PrincipaleFrame extends javax.swing.JFrame {
                     while(bytesRead != -1)
                         {
                             bytesRead = mTool.micro.read(soundData, 0, soundData.length);
+                            if(mIn.readUTF()=="Nouveau Client"){
+                                System.out.println("Nouveau Client");
+                            }
                             if(bytesRead >= 0)
                             {
                                 mOut.write(soundData, 0, bytesRead);
