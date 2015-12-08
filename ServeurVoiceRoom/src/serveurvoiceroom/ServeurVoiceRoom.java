@@ -37,12 +37,12 @@ public class ServeurVoiceRoom {
         while (true) {
             try {
                 socket = serverSocket.accept();
+                System.out.println(socket.getLocalSocketAddress());
                 if(Clients.containsKey(socket.getLocalSocketAddress().toString())){
                     Clients.get(socket.getLocalSocketAddress().toString()).setSocketData(socket);
                 }
                 else {
                     Client client=new Client(socket,room);
-                    System.out.println(socket.getLocalSocketAddress());
                     Clients.put(socket.getLocalSocketAddress().toString(), client);
                     client.start();
                 }
