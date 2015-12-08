@@ -13,6 +13,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -26,6 +28,7 @@ public class Client extends Thread{
     private String password;
     protected Socket socket;
     protected Socket socketdata;
+    protected Room room;
     private String ip;
 
     public Socket getSocketdata() {
@@ -70,15 +73,18 @@ public class Client extends Thread{
         this.password = password;
     }
     
-    public Client(Socket socket) {
+    public Client(Socket socket, Room room) {
         this.socket = socket;
+        this.room=room;
     }
     
-    public void run(Room room) throws IOException, ClassNotFoundException{
-        ObjectInputStream Int = new ObjectInputStream(socket.getInputStream());
-        ObjectOutputStream Out =  new ObjectOutputStream(socket.getOutputStream());
-        String line;
+    @Override
+    public void run(){
+        
             try {
+                ObjectInputStream Int = new ObjectInputStream(socket.getInputStream());
+                ObjectOutputStream Out =  new ObjectOutputStream(socket.getOutputStream());
+                String line;
                 line = (String) Int.readObject();
                 if ((line == null) || line.equalsIgnoreCase("QUIT")) {
                     socket.close();
@@ -119,7 +125,9 @@ public class Client extends Thread{
             } catch (IOException e) {
                 e.printStackTrace();
                 return;
-            }
+            } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
     

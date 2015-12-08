@@ -42,9 +42,9 @@ public class ServeurVoiceRoom {
                     Clients.get(socket.getRemoteSocketAddress().toString()).rundata(room);
                 }
                 else {*/
-                    Client client=new Client(socket);
+                    Client client=new Client(socket,room);
                     Clients.put(socket.getRemoteSocketAddress().toString(), client);
-                    client.run(room);
+                    client.start();
                 //}
             } catch (IOException e) {
                 System.out.println("I/O error: " + e);
