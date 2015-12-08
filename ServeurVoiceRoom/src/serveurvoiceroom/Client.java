@@ -102,6 +102,7 @@ public class Client extends Thread{
                     
                     Out.writeObject(jsRoom);
                     Out.flush();
+                    sendList(clients,this);
                     int bytesRead = 0;
                     byte[] inBytes = new byte[1];
                     while(bytesRead != -1)
@@ -174,6 +175,28 @@ public class Client extends Thread{
                     e1.printStackTrace();
                 }
                 try{tempOut.write(byteArray, 0, q);}catch (IOException e){}
+            }
+        }
+    }
+    
+    public static void sendList(List<Client> clients,Client client)
+    {
+        Iterator<Client> sockIt = clients.iterator();
+        while(sockIt.hasNext())
+        {
+            Client temp = sockIt.next();
+            if(temp.getIdentifiant()!=client.getIdentifiant()){
+                
+                DataOutputStream tempOut = null;
+                try
+                {
+                    tempOut = new DataOutputStream(temp.getSocket().getOutputStream());
+                } catch (IOException e1)
+                {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                try{tempOut.writeUTF("Nouveau Client");tempOut.writeUTF(client.getIdentifiant());tempOut.flush();}catch (IOException e){}
             }
         }
     }
