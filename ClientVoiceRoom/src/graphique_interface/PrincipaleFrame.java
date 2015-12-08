@@ -211,6 +211,7 @@ public class PrincipaleFrame extends javax.swing.JFrame {
                   
                 try {
                     ThreadClient thread = new ThreadClient(new Socket(mIp, 1777), PrincipaleFrame.this);
+                    thread.start();
                 } catch (IOException ex) {
                     Logger.getLogger(PrincipaleFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
