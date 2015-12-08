@@ -8,10 +8,13 @@ import java.sql.Statement;
 
 public class Connect {
 
-    public static void main(String[] args) {
+    public static void main(Client unclient) {
         String url = "jdbc:mysql://192.168.1.101:3306/voiceroom";
         String user = "admin";
         String passwd = "Formation";
+        
+        String nameClient = unclient.getName();
+        String pwdClient = unclient.getPassword();
 
         try {
             System.out.println("chargement du driver");
@@ -21,7 +24,7 @@ public class Connect {
             System.out.println("création d'un statement");
             Statement requete = con.createStatement();
             System.out.println("execution d'une requete");
-            ResultSet resultat = requete.executeQuery("select * from users");
+            ResultSet resultat = requete.executeQuery("select * from users where nom="+nameClient+" and password="+pwdClient);
             while (resultat.next()) {
                 System.out.println(resultat.getString(1) + "  " + resultat.getString(2));
             };
