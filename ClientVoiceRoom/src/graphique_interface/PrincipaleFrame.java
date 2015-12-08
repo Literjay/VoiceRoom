@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.ListModel;
 
 /**
  *
@@ -27,6 +28,7 @@ import javax.swing.JList;
 public class PrincipaleFrame extends javax.swing.JFrame {
     protected  Room mRoom;
     protected  Tool mTool;
+    protected String mIp;
     protected  ObjectOutputStream mOut;
     protected  ObjectInputStream mIn;
     protected  Vector mListData;
@@ -34,7 +36,7 @@ public class PrincipaleFrame extends javax.swing.JFrame {
      * Creates new form PrincipaleFrame
      */
     
-     public PrincipaleFrame(Room room, Tool tool ,ObjectOutputStream out, ObjectInputStream in) {
+     public PrincipaleFrame(Room room, Tool tool ,ObjectOutputStream out, ObjectInputStream in, String ip) {
          
         initComponents();
         button_micro.setOpaque(true);
@@ -42,6 +44,7 @@ public class PrincipaleFrame extends javax.swing.JFrame {
         mRoom = room;
         mTool = tool;
         mIn= in;
+        mIp = ip;
         mOut = out;
          ArrayList<Client> clients = mRoom.getClients();
         for(Client c : clients){
@@ -205,24 +208,34 @@ public class PrincipaleFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             
             public void run() {
-                    
+                  
+                try {
+                    ThreadClient thread = new ThreadClient(new Socket(mIp, 1777), PrincipaleFrame.this);
+                } catch (IOException ex) {
+                    Logger.getLogger(PrincipaleFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              
                     int bytesRead = 0;
                     byte[] soundData = new byte[1];
                 try {
                     System.out.println("en attente");
+                    
                     while(bytesRead != -1)
                         {
                             bytesRead = mTool.micro.read(soundData, 0, soundData.length);
-                            if(mIn.read()==666){
-                                System.out.println(mIn.readUTF());
-                            }
                             if(bytesRead >= 0)
                             {
                                 mOut.write(soundData, 0, bytesRead);
                             }
+                            
                         }
                 } 
                    catch (IOException ex) {
+                        try {
+                            System.out.println(mIn.readUTF());
+                        } catch (IOException ex1) {
+                            Logger.getLogger(PrincipaleFrame.class.getName()).log(Level.SEVERE, null, ex1);
+                        }
                     Logger.getLogger(PrincipaleFrame.class.getName()).log(Level.SEVERE, null, ex);
                 } 
                /* try {
@@ -245,6 +258,16 @@ public class PrincipaleFrame extends javax.swing.JFrame {
                 }*/
             }
         });
+    }
+    
+    public void setNameClient(String name){
+        ListModel modele = mList.getModel();
+        DefaultListModel clients = new DefaultListModel();
+        for(int i = 0 ; i<modele.getSize(); i ++){
+            clients.addElement(modele.getElementAt(i));
+        }
+        clients.addElement(name);
+        mList.setModel(clients);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
