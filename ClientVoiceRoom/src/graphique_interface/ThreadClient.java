@@ -18,8 +18,6 @@ import java.util.logging.Logger;
  */
 public class ThreadClient extends Thread{
     protected Socket mSocket;
-    protected ObjectOutputStream mOut;
-    protected ObjectInputStream mInt;
     protected PrincipaleFrame mFrame;
     
     
@@ -31,9 +29,8 @@ public class ThreadClient extends Thread{
     @Override
     public void run(){
         try {
-            mOut = new ObjectOutputStream(mSocket.getOutputStream());
-            mInt = new ObjectInputStream(mSocket.getInputStream());
-            
+            ObjectOutputStream mOut = new ObjectOutputStream(mSocket.getOutputStream());
+            ObjectInputStream mInt = new ObjectInputStream(mSocket.getInputStream());
             while(true)
                         {
                             String data =mInt.readUTF();

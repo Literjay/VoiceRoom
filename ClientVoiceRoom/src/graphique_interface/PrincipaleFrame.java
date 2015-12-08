@@ -210,7 +210,8 @@ public class PrincipaleFrame extends javax.swing.JFrame {
             public void run() {
                   
                 try {
-                    ThreadClient thread = new ThreadClient(new Socket(mIp, 1777), PrincipaleFrame.this);
+                    Socket socketData = new Socket(mIp, 1777);
+                    ThreadClient thread = new ThreadClient(socketData, PrincipaleFrame.this);
                     thread.start();
                 } catch (IOException ex) {
                     Logger.getLogger(PrincipaleFrame.class.getName()).log(Level.SEVERE, null, ex);
